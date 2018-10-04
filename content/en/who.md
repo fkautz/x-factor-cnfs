@@ -1,4 +1,4 @@
 Who should read this document?
 ==============================
 
-Any developer building applications which run as a service.  Ops engineers who deploy or manage such applications.
+Any developer building Cloud-Native Network Functions.  Ops engineers who deploy or manage such applications.

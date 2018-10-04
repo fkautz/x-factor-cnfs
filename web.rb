@@ -27,7 +27,7 @@ get '/' do
   erb :home
 end
 
-TOC = %w(codebase dependencies config backing-services build-release-run processes port-binding concurrency disposability dev-prod-parity logs admin-processes)
+TOC = %w(codebase dependencies config backing-services build-release-run processes port-binding concurrency disposability dev-prod-parity logs admin-processes process-containers payloads mechanisms bind-payload-mechanism metrics-as-event-streams)
 
 get '/:factor' do |factor|
   halt 404 unless TOC.include?(factor)

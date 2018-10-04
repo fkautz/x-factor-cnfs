@@ -1,5 +1,12 @@
 ## VII. Port binding
-### Export services via port binding
+### Not recommended in X-factor CNFs. However, if necessary, export services via port binding
+
+Port binding has been removed from X-factor CNFs. Exposing services over the orchestration-managed network interface is not recommended.
+
+However, if an X-factor CNF must provide a service over the orchestration-managed network interface, the X-factor CNF follows the same rules as a 12-factor app, as follows:
+
+### 12-factor rule VII. Port binding
+#### Export services via port binding
 
 Web apps are sometimes executed inside a webserver container.  For example, PHP apps might run as a module inside [Apache HTTPD](http://httpd.apache.org/), or Java apps might run inside [Tomcat](http://tomcat.apache.org/).
 
