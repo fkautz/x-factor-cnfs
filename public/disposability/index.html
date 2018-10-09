@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+       - X-Factor CNFs
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="page-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           X-Factor CNFs
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post page">
+    <header class="post-header">
+      <h2 class="post-title"></h2>
+    </header>
+    <section class="post-content">
+      
+
+<h2 id="ix-disposability">IX. Disposability</h2>
+
+<h3 id="maximize-robustness-with-fast-startup-and-graceful-shutdown">Maximize robustness with fast startup and graceful shutdown</h3>
+
+<p><strong>The X-factor CNF&rsquo;s <a href="./processes">processes</a> are <em>disposable</em>, meaning they can be started or stopped at a moment&rsquo;s notice.</strong>  This facilitates fast elastic scaling, rapid deployment of <a href="./codebase">code</a> or <a href="./config">config</a> changes, and robustness of production deploys.</p>
+
+<p>Processes should strive to <strong>minimize startup time</strong>.  Ideally, a process takes a few seconds from the time the launch command is executed until the process is up and ready to receive requests or jobs.  Short startup time provides more agility for the <a href="./build-release-run">release</a> process and scaling up; and it aids robustness, because the process manager can more easily move processes to new physical machines when warranted.</p>
+
+<p>Processes <strong>shut down gracefully when they receive a <a href="http://en.wikipedia.org/wiki/SIGTERM">SIGTERM</a></strong> signal from the process manager.  For a web process, graceful shutdown is achieved by ceasing to listen on the service port (thereby refusing any new requests), allowing any current requests to finish, and then exiting.  Implicit in this model is that HTTP requests are short (no more than a few seconds), or in the case of long polling, the client should seamlessly attempt to reconnect when the connection is lost.</p>
+
+<p>For a worker process, graceful shutdown is achieved by returning the current job to the work queue.  For example, on <a href="http://www.rabbitmq.com/">RabbitMQ</a> the worker can send a <a href="http://www.rabbitmq.com/amqp-0-9-1-quickref.html#basic.nack"><code>NACK</code></a>; on <a href="http://kr.github.com/beanstalkd/">Beanstalkd</a>, the job is returned to the queue automatically whenever a worker disconnects.  Lock-based systems such as <a href="https://github.com/collectiveidea/delayed_job#readme">Delayed Job</a> need to be sure to release their lock on the job record.  Implicit in this model is that all jobs are <a href="http://en.wikipedia.org/wiki/Reentrant_%28subroutine%29">reentrant</a>, which typically is achieved by wrapping the results in a transaction, or making the operation <a href="http://en.wikipedia.org/wiki/Idempotence">idempotent</a>.</p>
+
+<p>Processes should also be <strong>robust against sudden death</strong>, in the case of a failure in the underlying hardware.  While this is a much less common occurrence than a graceful shutdown with <code>SIGTERM</code>, it can still happen.  A recommended approach is use of a robust queueing backend, such as Beanstalkd, that returns jobs to the queue when clients disconnect or time out.  Either way, a X-factor CNF is architected to handle unexpected, non-graceful terminations.  <a href="http://lwn.net/Articles/191059/">Crash-only design</a> takes this concept to its <a href="http://docs.couchdb.org/en/latest/intro/overview.html">logical conclusion</a>.</p>
+
+    </section>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 X-Factor CNFs</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

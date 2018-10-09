@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+       - X-Factor CNFs
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="page-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           X-Factor CNFs
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post page">
+    <header class="post-header">
+      <h2 class="post-title"></h2>
+    </header>
+    <section class="post-content">
+      
+
+<h2 id="viii-concurrency">VIII. Concurrency</h2>
+
+<h3 id="scale-out-via-the-process-model">Scale out via the process model</h3>
+
+<p>Any computer program, once run, is represented by one or more processes.  Apps have taken a variety of process-execution forms.  For example, PHP processes run as child processes of Apache, started on demand as needed by request volume.  Java processes take the opposite approach, with the JVM providing one massive uberprocess that reserves a large block of system resources (CPU and memory) on startup, with concurrency managed internally via threads.  In both cases, the running process(es) are only minimally visible to the developers of the CNF.</p>
+
+<p><img src="/images/process-types.png" alt="Scale is expressed as running processes, workload diversity is expressed as process types." /></p>
+
+<p><strong>In the X-factor CNF, processes are a first class citizen.</strong>  Processes in the X-factor app take strong cues from <a href="https://adam.herokuapp.com/past/2011/5/9/applying_the_unix_process_model_to_web_apps/">the unix process model for running service daemons</a>.  Using this model, the developer can architect their CNF to handle diverse workloads by assigning each type of work to a <em>process type</em>.  For example, HTTP requests may be handled by a web process, and long-running background tasks handled by a worker process.</p>
+
+<p>This does not exclude individual processes from handling their own internal multiplexing, via threads inside the runtime VM, or the async/evented model found in tools such as <a href="http://rubyeventmachine.com/">EventMachine</a>, <a href="http://twistedmatrix.com/trac/">Twisted</a>, or <a href="http://nodejs.org/">Node.js</a>.  But an individual VM can only grow so large (vertical scale), so the application must also be able to span multiple processes running on multiple physical machines.</p>
+
+<p>The process model truly shines when it comes time to scale out.  The <a href="./processes">share-nothing, horizontally partitionable nature of X-factor CNF processes</a> means that adding more concurrency is a simple and reliable operation.  The array of process types and number of processes of each type is known as the <em>process formation</em>.</p>
+
+<p>X-factor CNF processes <a href="http://dustin.github.com/2010/02/28/running-processes.html">should never daemonize</a> or write PID files.  Instead, rely on the operating system&rsquo;s process manager (such as <a href="https://www.freedesktop.org/wiki/Software/systemd/">systemd</a>, a distributed process manager on a cloud platform, or a tool like <a href="http://blog.daviddollar.org/2011/05/06/introducing-foreman.html">Foreman</a> in development) to manage <a href="./logs">output streams</a>, respond to crashed processes, and handle user-initiated restarts and shutdowns.</p>
+
+    </section>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 X-Factor CNFs</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

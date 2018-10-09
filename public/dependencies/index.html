@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+       - X-Factor CNFs
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="page-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           X-Factor CNFs
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post page">
+    <header class="post-header">
+      <h2 class="post-title"></h2>
+    </header>
+    <section class="post-content">
+      
+
+<h2 id="ii-dependencies">II. Dependencies</h2>
+
+<h3 id="explicitly-declare-and-isolate-dependencies">Explicitly declare and isolate dependencies</h3>
+
+<p>Most programming languages offer a packaging system for distributing support libraries, such as <a href="http://www.cpan.org/">CPAN</a> for Perl or <a href="http://rubygems.org/">Rubygems</a> for Ruby.  Libraries installed through a packaging system can be installed system-wide (known as &ldquo;site packages&rdquo;) or scoped into the directory containing the app (known as &ldquo;vendoring&rdquo; or &ldquo;bundling&rdquo;).</p>
+
+<p><strong>A X-factor CNF never relies on implicit existence of system-wide packages.</strong>  It declares all dependencies, completely and exactly, via a <em>dependency declaration</em> manifest.  Furthermore, it uses a <em>dependency isolation</em> tool during execution to ensure that no implicit dependencies &ldquo;leak in&rdquo; from the surrounding system.  The full and explicit dependency specification is applied uniformly to both production and development.</p>
+
+<p>For example, <a href="https://bundler.io/">Bundler</a> for Ruby offers the <code>Gemfile</code> manifest format for dependency declaration and <code>bundle exec</code> for dependency isolation.  In Python there are two separate tools for these steps &ndash; <a href="http://www.pip-installer.org/en/latest/">Pip</a> is used for declaration and <a href="http://www.virtualenv.org/en/latest/">Virtualenv</a> for isolation.  Even C has <a href="http://www.gnu.org/s/autoconf/">Autoconf</a> for dependency declaration, and static linking can provide dependency isolation.  No matter what the toolchain, dependency declaration and isolation must always be used together &ndash; only one or the other is not sufficient to satisfy X-factor.</p>
+
+<p>One benefit of explicit dependency declaration is that it simplifies setup for developers new to the CNF.  The new developer can check out the CNF&rsquo;s codebase onto their development machine, requiring only the language runtime and dependency manager installed as prerequisites.  They will be able to set up everything needed to run the CNF&rsquo;s code with a deterministic <em>build command</em>.  For example, the build command for Ruby/Bundler is <code>bundle install</code>, while for Clojure/<a href="https://github.com/technomancy/leiningen#readme">Leiningen</a> it is <code>lein deps</code>.</p>
+
+<p>X-factor CNFs also do not rely on the implicit existence of any system tools.  Examples include shelling out to ImageMagick or `curl**.  While these tools may exist on many or even most systems, there is no guarantee that they will exist on all systems where the CNF may run in the future, or whether the version found on a future system will be compatible with the CNF.  If the CNF needs to shell out to a system tool, that tool should be vendored into the CNF.</p>
+
+<h3 id="todo">TODO</h3>
+
+<ul>
+<li>Provide guidance for building CNFs which require hardware such as SR-IOV.</li>
+</ul>
+
+    </section>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 X-Factor CNFs</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+       - X-Factor CNFs
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="page-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           X-Factor CNFs
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post page">
+    <header class="post-header">
+      <h2 class="post-title"></h2>
+    </header>
+    <section class="post-content">
+      
+
+<h2 id="xv-interface-mechanisms">XV. Interface mechanisms</h2>
+
+<h3 id="list-mechanisms-supported-in-order-of-preference">List mechanisms supported in order of preference</h3>
+
+<p>A given X-factor CNF lists in order of preference what types of interface mechanisms are supported for both its terminating and initiating interfaces.</p>
+
+<p>An interface mechanism is any serial/block device,, file or socket that is used to transport data in and out of the container. The most common type of interface mechanism is the Linux interface. Other common mechanisms include SR-IOV, vhost-user, shmem, unix sockets, or serial/block devices.</p>
+
+<p>An X-factor CNF may list multiple preferences of what types of interface mechanisms it supports. However, only one mechanism will be wired in for the connection it terminates and only one will be wired in for the connection it initiates.</p>
+
+<p>By listing these mechanisms explicitly, the orchestrator can coordinate with both the CNF and data plane to determine what the most fitting interface for the CNF should be. Likewise, the operator may choose to disable certain types of minterface mechanisms administratively for a given CNF to preserve resources for other CNFs which are in higher need when resources are scare, such as hardware devices.</p>
+
+    </section>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 X-Factor CNFs</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

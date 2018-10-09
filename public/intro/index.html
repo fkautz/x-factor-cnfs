@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+       - X-Factor CNFs
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="page-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           X-Factor CNFs
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post page">
+    <header class="post-header">
+      <h2 class="post-title"></h2>
+    </header>
+    <section class="post-content">
+      
+
+<h1 id="introduction">Introduction</h1>
+
+<p>Cloud-Native Network Function (CNF) developers may learn much by studying how 12 Factor Apps are built.  With X-Factor CNFs (X-CNF), we build on the lessons learned from building 12 Factor Apps.</p>
+
+<p>Following these patterns will help guide you construct CNFs which are easier to develop, operate and maintain.</p>
+
+<p>Like 12 Factor Apps, X-CNFs have the following properties:</p>
+
+<ul>
+<li>Use <strong>declarative</strong> formats for setup automation, to minimize time and cost for new developers joining the project;</li>
+<li>Have a <strong>clean contract</strong> with the underlying operating system, offering <strong>maximum portability</strong> between execution environments;</li>
+<li>Are suitable for <strong>deployment</strong> on modern <strong>cloud</strong> and <strong>service provider</strong> platforms, obviating the need for servers, virtual machines and systems administration;</li>
+<li><strong>Minimize divergence</strong> between development and production, enabling <strong>continuous deployment</strong> for maximum agility;</li>
+<li>And can <strong>scale up</strong> without significant changes to tooling, architecture, or development practices.</li>
+</ul>
+
+<p>X-CNFs also have additional properties not common in 12 Factor Apps which enable their use as a CNF:</p>
+
+<ul>
+<li>State their <strong>payload type</strong> for easy service function chaining orchestration;</li>
+<li>List their <strong>supported mechanisms</strong> supported mechanisms in order of preference to facilitate wiring to a data plane;</li>
+<li>Connect to <strong>Cloud-Native Microservices</strong> over their default <strong>orchestration-managed</strong> network interface;</li>
+</ul>
+
+<p>The X-factor methodology can be applied to CNFs written in any programming language, and which use any combination of backing <strong>network services</strong> (bridge domain, subnet, VPN, ToR port, etc) communicating over a well defined <strong>payload</strong> (ethernet, IP, MPLS, VXLAN, etc) and <strong>mechanism</strong> (Linux interface, SR-IOV, memif, etc) to a <strong>data plane</strong> (physical, OVS, VPP). The X-factor CNF may also use any number of <strong>Cloud-Native</strong> services (database, queue, memory cache, etc).</p>
+
+<h2 id="cnf-levels">CNF Levels</h2>
+
+<p>Finally, a CNF level system is proposed. These serve two purposes:</p>
+
+<ol>
+<li>Guide the community towards best practices that allow the CNF to fully leverage the Cloud-Native environment in which they live.</li>
+<li>Describe the level of operational risk the service provider will take on when introducing a CNF into their environment.</li>
+</ol>
+
+    </section>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 X-Factor CNFs</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

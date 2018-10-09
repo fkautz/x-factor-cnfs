@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+       - X-Factor CNFs
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="page-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           X-Factor CNFs
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post page">
+    <header class="post-header">
+      <h2 class="post-title"></h2>
+    </header>
+    <section class="post-content">
+      
+
+<h2 id="xi-logs">XI. Logs</h2>
+
+<h3 id="treat-logs-as-event-streams">Treat logs as event streams</h3>
+
+<p><em>Logs</em> provide visibility into the behavior of a running CNF.  In server-based environments they are commonly written to a file on disk (a &ldquo;logfile&rdquo;); but this is only an output format.</p>
+
+<p>Logs are the <a href="https://adam.herokuapp.com/past/2011/4/1/logs_are_streams_not_files/">stream</a> of aggregated, time-ordered events collected from the output streams of all running processes and backing services.  Logs in their raw form are typically a text format with one event per line (though backtraces from exceptions may span multiple lines).  Logs have no fixed beginning or end, but flow continuously as long as the CNF is operating.</p>
+
+<p><strong>A X-factor CNF never concerns itself with routing or storage of its output stream.</strong>  It should not attempt to write to or manage logfiles.  Instead, each running process writes its event stream, unbuffered, to <code>stdout</code>.  During local development, the developer will view this stream in the foreground of their terminal to observe the CNF&rsquo;s behavior.</p>
+
+<p>In staging or production deploys, each process&rsquo; stream will be captured by the execution environment, collated together with all other streams from the CNF, and routed to one or more final destinations for viewing and long-term archival.  These archival destinations are not visible to or configurable by the CNF, and instead are completely managed by the execution environment.  Open-source log routers (such as <a href="https://github.com/heroku/logplex">Logplex</a> and <a href="https://github.com/fluent/fluentd">Fluentd</a>) are available for this purpose.</p>
+
+<p>The event stream for an CNF can be routed to a file, or watched via realtime tail in a terminal.  Most significantly, the stream can be sent to a log indexing and analysis system such as <a href="http://www.splunk.com/">Splunk</a>, or a general-purpose data warehousing system such as <a href="http://hive.apache.org/">Hadoop/Hive</a>.  These systems allow for great power and flexibility for introspecting an CNF&rsquo;s behavior over time, including:</p>
+
+<ul>
+<li>Finding specific events in the past.</li>
+<li>Large-scale graphing of trends (such as requests per minute).</li>
+<li>Active alerting according to user-defined heuristics (such as an alert when the quantity of errors per minute exceeds a certain threshold).</li>
+</ul>
+
+    </section>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 X-Factor CNFs</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

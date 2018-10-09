@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+       - X-Factor CNFs
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="page-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           X-Factor CNFs
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post page">
+    <header class="post-header">
+      <h2 class="post-title"></h2>
+    </header>
+    <section class="post-content">
+      
+
+<h2 id="vii-port-binding">VII. Port binding</h2>
+
+<h3 id="not-recommended-in-x-factor-cnfs-however-if-necessary-export-services-via-port-binding">Not recommended in X-factor CNFs. However, if necessary, export services via port binding</h3>
+
+<p>Port binding has been removed from X-factor CNFs. Exposing services over the orchestration-managed network interface is not recommended.</p>
+
+<p>However, if an X-factor CNF must provide a service over the orchestration-managed network interface, the X-factor CNF follows the same rules as a 12-factor app, as follows:</p>
+
+<h3 id="12-factor-rule-vii-port-binding">12-factor rule VII. Port binding</h3>
+
+<h4 id="export-services-via-port-binding">Export services via port binding</h4>
+
+<p>Web apps are sometimes executed inside a webserver container.  For example, PHP apps might run as a module inside <a href="http://httpd.apache.org/">Apache HTTPD</a>, or Java apps might run inside <a href="http://tomcat.apache.org/">Tomcat</a>.</p>
+
+<p><strong>The twelve-factor app is completely self-contained</strong> and does not rely on runtime injection of a webserver into the execution environment to create a web-facing service.  The web app <strong>exports HTTP as a service by binding to a port</strong>, and listening to requests coming in on that port.</p>
+
+<p>In a local development environment, the developer visits a service URL like <code>http://localhost:5000/</code> to access the service exported by their app.  In deployment, a routing layer handles routing requests from a public-facing hostname to the port-bound web processes.</p>
+
+<p>This is typically implemented by using <a href="./dependencies">dependency declaration</a> to add a webserver library to the app, such as <a href="http://www.tornadoweb.org/">Tornado</a> for Python, <a href="http://code.macournoyer.com/thin/">Thin</a> for Ruby, or <a href="http://www.eclipse.org/jetty/">Jetty</a> for Java and other JVM-based languages.  This happens entirely in <em>user space</em>, that is, within the app&rsquo;s code.  The contract with the execution environment is binding to a port to serve requests.</p>
+
+<p>HTTP is not the only service that can be exported by port binding.  Nearly any kind of server software can be run via a process binding to a port and awaiting incoming requests.  Examples include <a href="http://www.ejabberd.im/">ejabberd</a> (speaking <a href="http://xmpp.org/">XMPP</a>), and <a href="http://redis.io/">Redis</a> (speaking the <a href="http://redis.io/topics/protocol">Redis protocol</a>).</p>
+
+<p>Note also that the port-binding approach means that one app can become the <a href="./backing-services">backing service</a> for another app, by providing the URL to the backing app as a resource handle in the <a href="./config">config</a> for the consuming app.</p>
+
+    </section>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 X-Factor CNFs</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

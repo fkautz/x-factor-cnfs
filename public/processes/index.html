@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+       - X-Factor CNFs
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="page-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           X-Factor CNFs
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post page">
+    <header class="post-header">
+      <h2 class="post-title"></h2>
+    </header>
+    <section class="post-content">
+      
+
+<h2 id="vi-processes">VI. Processes</h2>
+
+<h3 id="execute-the-app-as-one-or-more-stateless-processes">Execute the app as one or more stateless processes</h3>
+
+<p>The CNF is executed in the execution environment as one or more <em>processes</em>.</p>
+
+<p>In the simplest case, the code is a stand-alone script, the execution environment is a developer&rsquo;s local laptop with an installed language runtime, and the process is launched via the command line (for example, <code>python my_script.py</code>).  On the other end of the spectrum, a production deploy of a sophisticated CNF may use many <a href="./concurrency">process types, instantiated into zero or more running processes</a>.</p>
+
+<p><strong>X-factor processes are stateless and <a href="http://en.wikipedia.org/wiki/Shared_nothing_architecture">share-nothing</a>.</strong>  Any data that needs to persist must be stored in a stateful <a href="./backing-services">backing service</a>, typically a database.</p>
+
+<p>The memory space or filesystem of the process can be used as a brief, single-transaction cache.  For example, downloading a large file, operating on it, and storing the results of the operation in the database.  The X-factor CNF never assumes that anything cached in memory or on disk will be available on a future request or job &ndash; with many processes of each type running, chances are high that a future request will be served by a different process.  Even when running only one process, a restart (triggered by code deploy, config change, or the execution environment relocating the process to a different physical location) will usually wipe out all local (e.g., memory and filesystem) state.</p>
+
+<p>Asset packagers like <a href="http://code.google.com/p/django-assetpackager/">django-assetpackager</a> use the filesystem as a cache for compiled assets.  A X-factor CNF prefers to do this compiling during the <a href="/build-release-run">build stage</a>. Asset packagers such as <a href="http://documentcloud.github.com/jammit/">Jammit</a> and the <a href="http://ryanbigg.com/guides/asset_pipeline.html">Rails asset pipeline</a> can be configured to package assets during the build stage.</p>
+
+<p>Some web systems rely on <a href="http://en.wikipedia.org/wiki/Load_balancing_%28computing%29#Persistence">&ldquo;sticky sessions&rdquo;</a> &ndash; that is, caching user session data in memory of the app&rsquo;s process and expecting future requests from the same visitor to be routed to the same process.  Sticky sessions are a violation of X-factor and should never be used or relied upon.  Session state data is a good candidate for a datastore that offers time-expiration, such as <a href="http://memcached.org/">Memcached</a> or <a href="http://redis.io/">Redis</a>.</p>
+
+<h1 id="todo">TODO</h1>
+
+<ul>
+<li><p>While web apps may not rely on sticky sessions, it is likely that sticky wirings will exist. We must provide guidance on what to do when such a connection fails. My current recommendation is to provide metadata about how sticky the wirings should be. E.g. should a failure:</p></li>
+
+<li><p>Transparently reconnect to another CNF of the same type (stateless CNFs);</p></li>
+
+<li><p>Notify the CNF of a failure so that it can deal with the failure (stateful CNFs);</p></li>
+
+<li><p>Shutdown the entire chain (fragile stateful chains);</p></li>
+
+<li><p>Or shutdown and reinstantiate multiple parts of the chain</p></li>
+</ul>
+
+<p>Not all of these can be solved by the CNF. Instead, constraints may be added to the CNF&rsquo;s metadata to provide hints to the orchestrator about how to handle failures and pass context about the failure up and down the chain.</p>
+
+    </section>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 X-Factor CNFs</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>

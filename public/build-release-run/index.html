@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    
+    <title>
+      
+       - X-Factor CNFs
+      
+		</title>
+
+    <meta name="HandheldFriendly" content="True" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <link rel="stylesheet" type="text/css" href="/assets/css/normalize.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/icons.css" />
+    <link rel="stylesheet" type="text/css" href="/assets/css/screen.css" />
+    
+    <link href="https://fonts.googleapis.com/css?family=Bree+Serif|Lato:100,100i,300,300i,400,400i,700,700i|Source+Code+Pro:300,400,500,700" rel="stylesheet">
+    
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/jquery@1.12.4/dist/jquery.min.js"></script>
+    <script type="text/javascript" src="/assets/bigfoot/dist/bigfoot.js"></script>
+    <link rel="stylesheet" type="text/css" href="/assets/bigfoot/dist/bigfoot-number.css" />
+    <script type="text/javascript">
+        $.bigfoot();
+    </script>
+    
+    
+</head>
+
+    <body class="page-template">
+        <header class="main-header">
+	<div class="main-header-content">
+		<h1 class="blog-title">
+			<a href="/">
+				
+           X-Factor CNFs
+				
+			</a>
+		</h1>
+		<h2 class="blog-description"></h2>
+	</div>
+
+	<div class="nav">
+    
+		
+	</div>
+</header>
+
+        
+<main class="content" role="main">
+  <article class="post page">
+    <header class="post-header">
+      <h2 class="post-title"></h2>
+    </header>
+    <section class="post-content">
+      
+
+<h2 id="v-build-release-run">V. Build, release, run</h2>
+
+<h3 id="strictly-separate-build-and-run-stages">Strictly separate build and run stages</h3>
+
+<p>A <a href="./codebase">codebase</a> is transformed into a (non-development) deploy through three stages:</p>
+
+<ul>
+<li>The <em>build stage</em> is a transform which converts a code repo into an executable bundle known as a <em>build</em>.  Using a version of the code at a commit specified by the deployment process, the build stage fetches vendors <a href="./dependencies">dependencies</a> and compiles binaries and assets.</li>
+<li>The <em>release stage</em> takes the build produced by the build stage and combines it with the deploy&rsquo;s current <a href="./config">config</a>.  The resulting <em>release</em> contains both the build and the config and is ready for immediate execution in the execution environment.</li>
+<li>The <em>run stage</em> (also known as &ldquo;runtime&rdquo;) runs the CNF in the execution environment, by launching some set of the CNF&rsquo;s <a href="./processes">processes</a> against a selected release.</li>
+</ul>
+
+<p><img src="/images/release.png" alt="Code becomes a build, which is combined with config to create a release." /></p>
+
+<p><strong>The X-factor CNF uses strict separation between the build, release, and run stages.</strong>  For example, it is impossible to make changes to the code at runtime, since there is no way to propagate those changes back to the build stage.</p>
+
+<p>Deployment tools typically offer release management tools, most notably the ability to roll back to a previous release.  For example, the <a href="https://github.com/capistrano/capistrano/wiki">Capistrano</a> deployment tool stores releases in a subdirectory named <code>releases</code>, where the current release is a symlink to the current release directory.  Its <code>rollback</code> command makes it easy to quickly roll back to a previous release.</p>
+
+<p>Every release should always have a unique release ID, such as a timestamp of the release (such as <code>2011-04-06-20:32:17</code>) or an incrementing number (such as <code>v100</code>).  Releases are an append-only ledger and a release cannot be mutated once it is created.  Any change must create a new release.</p>
+
+<p>Builds are initiated by the CNF&rsquo;s developers whenever new code is deployed.  Runtime execution, by contrast, can happen automatically in cases such as a server reboot, or a crashed process being restarted by the process manager.  Therefore, the run stage should be kept to as few moving parts as possible, since problems that prevent a CNF from running can cause it to break in the middle of the night when no developers are on hand.  The build stage can be more complex, since errors are always in the foreground for a developer who is driving the deploy.</p>
+
+<h1 id="todo">TODO</h1>
+
+<ul>
+<li>Rephrase capistrano to kubernetes terminology</li>
+</ul>
+
+    </section>
+  </article>
+</main>
+
+        <footer class="site-footer">
+  <section class="rss"><a class="subscribe-button icon-feed" href="/index.xml"></a></section>
+  
+  
+  <section class="copyright">&copy; 2018 X-Factor CNFs</section>
+  <section class="poweredby"><a href="http://thedarkroast.com/arabica">Arabica</a> theme by Sean Lunsford. Published with <a href="https://gohugo.io">Hugo</a>.</section>
+</footer>
+
+
+
+    </body>
+</html>
