@@ -95,8 +95,8 @@ Run admin/management tasks as one-off processes
 
 ### -- Factors unique to X-CNFs --
 
-### [XIII. Do not require kernel modifications or modules](./process-containers)
-Run in an unmodified OS environment, without kernel modifications or custom modules
+### [XIII. Do not require privileges](./process-containers)
+The CNF should run without privileges. Privileged actions should be managed by the scheduler and environment.
 
 ### [XIV. Payloads](./payloads)
 Explicitly state payload types consumed and produced
