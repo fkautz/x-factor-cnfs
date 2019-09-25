@@ -7,7 +7,7 @@ draft: true
 Introduction
 ============
 
-Cloud-Native Network Function (CNF) developers may learn much by studying how 12 Factor Apps are built, scaled and maintained.  With X-Factor CNFs (X-CNF), we build on the lessons learned from building 12 Factor Apps.
+Cloud-Native Network Function (CNF) developers may learn much by studying how 12 Factor Apps are built, scaled and maintained.  With X-Factor CNFs (X-CNF), we build on the lessons learned from building 12 Factor Apps. This document builds directly on the work by Adam Wiggins and the 12 Factor App authors at [12factor.net](https://12factor.net).
 
 Following these patterns will help guide you to construct CNFs which are easier to develop, operate and maintain.
 
